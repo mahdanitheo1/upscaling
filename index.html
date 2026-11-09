@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Jernih</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="top">
+      <h1>Jernih</h1>
+      <p>Perbesar foto ke HD, FHD, 2K, atau 4K langsung di browser. Foto diproses di perangkat Anda dan tidak dikirim ke server.</p>
+    </header>
+
+    <main class="grid">
+      <section class="viewer" aria-label="Perbandingan sebelum dan sesudah">
+        <div class="stage" id="stage">
+          <div class="empty" id="empty">
+            <p class="empty-t">Seret foto ke sini</p>
+            <p class="empty-s">atau pilih dari perangkat. Mendukung JPG, PNG, dan WebP hingga 25 MP.</p>
+            <button type="button" class="btn primary" id="pickEmpty">Pilih foto</button>
+          </div>
+          <div class="frame" id="frame" hidden>
+            <img id="before" alt="Foto asli">
+            <canvas id="after" width="1" height="1" role="img" aria-label="Hasil pembesaran"></canvas>
+            <div class="divider" aria-hidden="true"><span class="knob">&#8596;</span></div>
+            <span class="tag tag-l" id="tagL">Asli</span>
+            <span class="tag tag-r" id="tagR">Hasil</span>
+            <div class="busy" id="busy" hidden><span id="busyText">Memproses…</span><span class="bar"><i></i></span></div>
+          </div>
+        </div>
+        <div class="viewbar">
+          <label for="cmp">Geser perbandingan</label>
+          <input type="range" id="cmp" min="0" max="100" value="50" aria-label="Posisi pembanding asli dan hasil">
+          <div class="seg" role="group" aria-label="Zoom">
+            <button type="button" id="zFit" aria-pressed="true">Pas</button>
+            <button type="button" id="zActual" aria-pressed="false">100%</button>
+          </div>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <aside class="panel">
+        <div class="sec">
+          <h2>Foto</h2>
+          <div class="row">
+            <button type="button" class="btn" id="pick">Pilih foto</button>
+          </div>
+          <input type="file" id="file" accept="image/*" hidden>
+          <p class="fileinfo" id="fileinfo"></p>
+          <p class="hint">Bisa juga seret foto ke area gambar atau tempel dengan Ctrl+V.</p>
+        </div>
+
+        <fieldset class="sec">
+          <legend>Resolusi</legend>
+          <div class="presets" id="presets"></div>
+          <p class="hint">Ukuran dihitung dari sisi terpanjang foto. Rasio tidak berubah.</p>
+        </fieldset>
+
+        <div class="sec">
+          <h2>Ketajaman</h2>
+          <div class="sharp">
+            <input type="range" id="sharp" min="0" max="100" value="55" aria-label="Ketajaman">
+            <output id="sharpOut" for="sharp">55</output>
+          </div>
+        </div>
+
+        <div class="sec">
+          <h2>Simpan</h2>
+          <div class="seg" role="group" aria-label="Format file" id="fmt">
+            <button type="button" data-f="jpg" aria-pressed="true">JPG</button>
+            <button type="button" data-f="png" aria-pressed="false">PNG</button>
+            <button type="button" data-f="webp" aria-pressed="false">WebP</button>
+          </div>
+          <button type="button" class="btn primary" id="dlbtn" disabled>Unduh hasil</button>
+          <p class="note" id="dlnote" hidden>Jika unduhan tidak muncul di tampilan ini, buka Jernih sebagai file HTML mandiri di Chrome, Firefox, atau Safari.</p>
+        </div>
+
+        <p class="note">Pembesaran memakai interpolasi Lanczos dan penajaman tepi. Hasilnya lebih halus dan jernih, tetapi detail yang tidak ada di foto asli tidak bisa dibuat ulang.</p>
+      </aside>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
